@@ -1,27 +1,28 @@
 // constants pin yang digunakan
-const int tombolPin = 2;     // Pin untuk tombol
-const int ledPin =  13;      // Pin untuk LED
+int ledPin=11;            // Pin untuk LED
+int tblPin=2;             /// Pin untuk tombol
 
-// variabel akan berubah:
-int statusTombol = 0;         // variabel untuk membaca status tombol tekan
+volatile int status = LOW; // variabel akan berubah
 
-void setup() {
-  // inisialisasi pin LED sebagai output:
-  pinMode(ledPin, OUTPUT);
-  // inisialisasi pin tombol sebagai input:
-  pinMode(tombolPin, INPUT);
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(ledPin,OUTPUT);   // inisialisasi pin LED sebagai output
+  pinMode(tblPin,INPUT);	// inisialisasi pin tombol sebagai input
 }
 
-void loop() {
-  // membaca status nilai tekan tombol :
-  buttonState = digitalRead(buttonPin);
-
-  // periksa apakah tombol ditekan. Jika ya, status tombolnya HIGH:
-  if (statusTombol == HIGH) {
-    // LED menyala:
-    digitalWrite(ledPin, HIGH);
-  } else {
-    // LED mati:
-    digitalWrite(ledPin, LOW);
+void loop()
+{
+  if(digitalRead(tblPin)==LOW)          // variabel untuk membaca status tombol tekan
+  {
+    delay(10);                        //Delay 10ms
+    if(digitalRead(tblPin)==LOW)        // periksa apakah tombol ditekan. Jika ya, status tombolnya LOW
+    {
+      while(digitalRead(tblPin)==LOW);	//Tunggu status tombol menjadi LOW
+      delay(10);   
+      while(digitalRead(tblPin)==LOW);   //Konfirmasi tombol ditekan
+      status = !status;                 // Operasi kebalikan, bila status HGIH menjadi LOW, atau kebalikannya.
+      digitalWrite(ledPin,status);     //Output status kontrol LED, ON atau OFF
+    }
   }
 }
