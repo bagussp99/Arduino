@@ -4,6 +4,7 @@
 <p>Alat dan bahan yang di butuhkan :</p>
 
 - Mikrokontroler Arduino Uno, Nano, Mega, Esp8266, Wemos d1, dll
+- Breadboard
 - LED
 - Tombol
 - Resistor 330 ohm
